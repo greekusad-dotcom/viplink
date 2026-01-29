@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Access</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #dc2626;
+            --primary-red-hover: #b91c1c;
+            --primary-red-glow: rgba(220, 38, 38, 0.4);
+            --black: #0a0a0a;
+            --black-light: #141414;
+            --white: #ffffff;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-400: #a3a3a3;
+            --gray-600: #525252;
+            --gray-800: #262626;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            padding: 80px 40px;
+            line-height: 1.5;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* Premium Header */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--primary-red);
+            margin: 32px auto 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: var(--white);
+        }
+
+        .header p {
+            color: var(--gray-400);
+            font-size: 1.125rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Grid Layout - Editorial Style */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+        }
+
+        /* Premium Card - Bauhaus Inspired */
+        .portal-card {
+            background: var(--white);
+            color: var(--black);
+            border-radius: 2px; /* Sharp luxury edges */
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--gray-800);
+        }
+
+        .portal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-red);
+        }
+
+        /* Red Accent Line */
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-red);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+
+        .portal-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        /* Card Header */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .portal-id {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 8px;
+        }
+
+        .portal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: -0.02em;
+        }
+
+        .status-indicator {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 8px 16px;
+            background: var(--gray-100);
+            color: var(--gray-600);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s;
+        }
+
+        .status-indicator.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        .status-indicator.ready {
+            background: var(--primary-red);
+            color: var(--white);
+            border-color: var(--primary-red);
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+        }
+
+        /* Action Stack */
+        .action-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Premium Buttons */
+        .luxury-btn {
+            position: relative;
+            width: 100%;
+            padding: 18px 32px;
+            border: none;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        .luxury-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .luxury-btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Black Button (Ads) */
+        .btn-ads {
+            background: var(--black);
+            color: var(--white);
+            border: 2px solid var(--black);
+        }
+
+        .btn-ads:hover:not(:disabled) {
+            background: var(--white);
+            color: var(--black);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-ads:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--gray-400);
+            border-color: var(--gray-400);
+        }
+
+        .btn-ads.completed {
+            background: var(--gray-800);
+            border-color: var(--gray-800);
+        }
+
+        /* Red Button (Watch Video) */
+        .btn-video {
+            background: var(--primary-red);
+            color: var(--white);
+            border: 2px solid var(--primary-red);
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.2);
+        }
+
+        .btn-video:hover:not(.inactive) {
+            background: var(--primary-red-hover);
+            border-color: var(--primary-red-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--primary-red-glow);
+        }
+
+        .btn-video.inactive {
+            background: var(--gray-100);
+            color: var(--gray-400);
+            border-color: var(--gray-200);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* Progress Bar - Minimal */
+        .progress-container {
+            height: 2px;
+            background: var(--gray-200);
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .progress-container.visible {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--black);
+            width: 0%;
+            transition: width 0.1s linear;
+            position: relative;
+        }
+
+        .progress-bar.complete {
+            background: var(--primary-red);
+        }
+
+        /* Clean Divider */
+        .divider {
+            text-align: center;
+            color: var(--gray-400);
+            font-size: 1rem;
+            font-weight: 300;
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: var(--gray-200);
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        /* Icons */
+        .icon-arrow {
+            transition: transform 0.2s;
+        }
+
+        .luxury-btn:hover:not(:disabled):not(.inactive) .icon-arrow {
+            transform: translateX(4px);
+        }
+
+        /* Loading */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            position: absolute;
+        }
+
+        .luxury-btn.loading .spinner {
+            display: block;
+        }
+
+        .luxury-btn.loading .btn-text {
+            opacity: 0;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 40px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portal-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Vip Link</h1>
+            <p>මුලින්ම Ads බටන් එක ක්ලික් කරන්න. 
+තප්පර 12ක් රැදීසිටින්න.
+පසුව Watch Video බටන් එක ක්ලික් කර වීඩියෝව නරඹන්න</p>
+        </header>
+
+        <div class="grid" id="grid"></div>
+    </div>
+
+    <script>
+        const portals = [
+            { id: '01', name: 'අලුත් ලීක් 01', green: 'https://otieu.com/4/10420892', red: 'https://server17.filedownloadlink.xyz/1055749.mp4' },
+            { id: '02', name: 'අලුත් ලීක් 02', green: 'https://otieu.com/4/10348048', red: 'https://server17.filedownloadlink.xyz/1055750.mp4' },
+            { id: '03', name: 'අලුත් ලීක් 03', green: 'https://otieu.com/4/10436983', red: 'https://server17.filedownloadlink.xyz/1055757.mp4' },
+            { id: '04', name: 'අලුත් ලීක් 04', green: 'https://otieu.com/4/10420892', red: 'https://server17.filedownloadlink.xyz/1055758.mp4' },
+            { id: '05', name: 'අලුත් ලීක් 05', green: 'https://otieu.com/4/10348048', red: 'https://server17.filedownloadlink.xyz/1055759.mp4' },
+            { id: '06', name: 'අලුත් ලීක් 06', green: 'https://otieu.com/4/10436983', red: 'https://server17.filedownloadlink.xyz/1055609.mp4' },
+            { id: '07', name: 'අලුත් ලීක් 07', green: 'https://otieu.com/4/10420893', red: 'https://server17.filedownloadlink.xyz/1055611.mp4' },
+            { id: '08', name: 'අලුත් ලීක් 08', green: 'https://otieu.com/4/10420892', red: 'https://server17.filedownloadlink.xyz/1055612.mp4' },
+            { id: '09', name: 'අලුත් ලීක් 09', green: 'https://otieu.com/4/10348048', red: 'https://server17.filedownloadlink.xyz/1055613.mp4' },
+            { id: '10', name: 'අලුත් ලීක් 10', green: 'https://otieu.com/4/10436983', red: 'https://server17.filedownloadlink.xyz/1055614.mp4' }
+        ];
+
+        const DELAY = 12000;
+
+        class PortalInterface {
+            constructor(data) {
+                this.data = data;
+                this.state = {
+                    initialized: false,
+                    unlocked: false
+                };
+                this.elements = {};
+                this.init();
+            }
+
+            init() {
+                this.render();
+                this.cacheElements();
+                this.attachEvents();
+            }
+
+            render() {
+                const grid = document.getElementById('grid');
+                const card = document.createElement('div');
+                card.className = 'portal-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div>
+                            <div class="portal-id">ID ${this.data.id}</div>
+                            <div class="portal-title">${this.data.name}</div>
+                        </div>
+                        <div class="status-indicator" id="status-${this.data.id}">Standby</div>
+                    </div>
+
+                    <div class="action-stack">
+                        <button class="luxury-btn btn-ads" id="green-${this.data.id}">
+                            <span class="btn-text">Ads</span>
+                            <svg class="icon-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                            <div class="spinner"></div>
+                        </button>
+
+                        <div class="progress-container" id="prog-${this.data.id}">
+                            <div class="progress-bar" id="bar-${this.data.id}"></div>
+                        </div>
+
+                        <div class="divider">↓</div>
+
+                        <button class="luxury-btn btn-video inactive" id="red-${this.data.id}">
+                            <span class="btn-text">Locked</span>
+                            <svg class="icon-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                            <div class="spinner"></div>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+
+            cacheElements() {
+                this.elements.green = document.getElementById(`green-${this.data.id}`);
+                this.elements.red = document.getElementById(`red-${this.data.id}`);
+                this.elements.status = document.getElementById(`status-${this.data.id}`);
+                this.elements.prog = document.getElementById(`prog-${this.data.id}`);
+                this.elements.bar = document.getElementById(`bar-${this.data.id}`);
+            }
+
+            attachEvents() {
+                this.elements.green.addEventListener('click', (e) => this.handleGreen(e));
+                this.elements.red.addEventListener('click', (e) => this.handleRed(e));
+            }
+
+            handleGreen(e) {
+                e.preventDefault();
+                if (this.state.initialized) return;
+
+                this.state.initialized = true;
+                this.elements.green.classList.add('loading');
+
+                setTimeout(() => {
+                    window.open(this.data.green, '_blank');
+                    this.elements.green.classList.remove('loading');
+                    this.elements.green.classList.add('completed');
+                    this.elements.green.innerHTML = `
+                        <span class="btn-text">Active</span>
+                        <svg class="icon-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    `;
+                    this.elements.green.disabled = true;
+
+                    this.elements.status.textContent = 'Processing';
+                    this.elements.status.classList.add('active');
+                    this.elements.prog.classList.add('visible');
+
+                    this.startTimer();
+                }, 500);
+            }
+
+            startTimer() {
+                const start = Date.now();
+                const interval = setInterval(() => {
+                    const elapsed = Date.now() - start;
+                    const progress = Math.min((elapsed / DELAY) * 100, 100);
+                    
+                    this.elements.bar.style.width = progress + '%';
+                    
+                    if (elapsed >= DELAY) {
+                        clearInterval(interval);
+                        this.unlock();
+                    }
+                }, 50);
+            }
+
+            unlock() {
+                this.state.unlocked = true;
+                this.elements.bar.classList.add('complete');
+                
+                this.elements.status.textContent = 'Ready';
+                this.elements.status.classList.remove('active');
+                this.elements.status.classList.add('ready');
+
+                setTimeout(() => {
+                    this.elements.prog.classList.remove('visible');
+                }, 800);
+
+                this.elements.red.classList.remove('inactive');
+                this.elements.red.innerHTML = `
+                    <span class="btn-text">Watch Video</span>
+                    <svg class="icon-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                `;
+            }
+
+            handleRed(e) {
+                if (!this.state.unlocked) return false;
+                
+                e.preventDefault();
+                this.elements.red.classList.add('loading');
+
+                setTimeout(() => {
+                    window.open(this.data.red, '_blank');
+                    this.elements.red.classList.remove('loading');
+                    this.elements.red.innerHTML = `
+                        <span class="btn-text">Complete</span>
+                        <svg class="icon-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    `;
+                    this.elements.red.disabled = true;
+                    this.elements.status.textContent = 'Complete';
+                    this.elements.status.classList.remove('ready');
+                    this.elements.style = 'background: var(--black); color: var(--white);';
+                }, 500);
+            }
+        }
+
+        portals.forEach(portal => new PortalInterface(portal));
+    </script>
+</body>
+</html>
